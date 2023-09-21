@@ -2,41 +2,64 @@ import java.util.*;
 
 public class GameShop {
 
-    private TreeMap llista = new TreeMap();
+    private TreeMap llistaJocs = new TreeMap();
+    Scanner sc =  new Scanner(System.in);
 
     public static void main(String args[]){
+        GameShop tenda = new GameShop();
+        tenda.llistaJocs.put("Zelda Twilight Princes", 30);
+        tenda.llistaJocs.put("CyberPunk 2077", 69);
+        tenda.llistaJocs.put("Red Dead Redemption 2", 40);
 
-            //We create a new GameShop
-            GameShop gs = new GameShop();
+        //Exemple de inserir joco
+        tenda.insertGame("Persona 3", 49.00 );
+        
+        //Exemple de mostrar jocs
+        tenda.mostrarAgenda(tenda.llistaJocs);
 
-            //We add some games to test
-            gs.llista.put("Zelda 1", 50.2);
+        //Modificar_preu 
+        tenda.modificarPreu("Red Dead Redemption 2",20.00);
 
-        gs.insertGames("Zeld 1", 20.0);
-        gs.displayGames();
 
-    }
-
-    //We create a method to insert game into the shop
-    public void insertGames(String name, Double preu){
-        for (Iterator i=this.llista.keySet().iterator(); i.hasNext();){
-            
-            if (name.equals(i.next())){
-                System.out.println(i.next()+" Exists");
-            }
-        }
-
-        //Insert the new Game 
-        this.llista.put(name, preu);
-
-    }
-    //We create a method to show the items 
-    public void displayGames(){
-        for(Iterator i=this.llista.keySet().iterator(); i.hasNext();){
-            String k=(String)i.next();
-            Double v=(Double)this.llista.get(k);
-            System.out.println("  "+k+ " : " +v);
-         }
      }
+
+     //Mostra els elements 
+     public static void mostrarAgenda(Map m){
+          for(Iterator i=m.keySet().iterator(); i.hasNext();){
+            String k=(String)i.next();
+            Double v=(Double)m.get(k);
+            System.out.println("  "+k+ " : " +v);
+        }
+    }
+
+    //Inserta elements
+    public void insertGame(String nom,Double preu){
+        if (this.llistaJocs.get(nom) == null) {
+            this.llistaJocs.put(nom,preu);
+        }
+        else {
+            System.out.println("  "+"El producte ja existeix");
+        }
+        
+    }
     
+    //Modificar el preu
+    public void modificarPreu(String nom, Double preu){
+        if (this.llistaJocs.get(nom) != null) {
+            this.llistaJocs.put(nom,preu);
+            System.out.println("\n"+"  "+"Preu de "+ nom +" ha sigut modificat");
+        }        
+        else System.out.println("  "+"Producte desconegut”");
+    }
+
+    //Eliminar un producte
+        public void eliminarProducte(String nom){
+        if (this.llistaJocs.get(nom) != null) {
+            String resposta = sc.nextLine();
+            System.out.println("Escriu yes per esborrar el producte");
+            if (resposta.equals("yes")){
+                this.llistaJocs.remove(nom);
+            }else System.out.println("Producte no eliminat");
+        }else System.out.println("No s'ha trobat el producte. ");
+    }
 } 
