@@ -62,7 +62,7 @@ public class GameShop {
             String resposta = sc.nextLine();
             if (resposta.equals("yes")){
                 this.llistaJocs.remove(nom);
-            }else System.out.println("Producte no eliminat");
+            }else System.out.println("Producte no eliminat");a
         }else System.out.println("  "+"No s'ha trobat el producte. ");
     }
 } 
