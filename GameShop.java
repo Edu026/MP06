@@ -7,9 +7,9 @@ public class GameShop {
 
     public static void main(String args[]){
         GameShop tenda = new GameShop();
-        tenda.llistaJocs.put("Zelda Twilight Princes", 30);
-        tenda.llistaJocs.put("CyberPunk 2077", 69);
-        tenda.llistaJocs.put("Red Dead Redemption 2", 40);
+        tenda.llistaJocs.put("Zelda Twilight Princes", 30.00);
+        tenda.llistaJocs.put("CyberPunk 2077", 69.00);
+        tenda.llistaJocs.put("Red Dead Redemption 2", 40.00);
 
         //Exemple de inserir joco
         tenda.insertGame("Persona 3", 49.00 );
@@ -20,9 +20,12 @@ public class GameShop {
         //Modificar_preu 
         tenda.modificarPreu("Red Dead Redemption 2",20.00);
 
+        //Exemple eliminar
+        tenda.eliminarProducte("Zelda Twilight Princes");
+        System.out.println( );
+        tenda.mostrarAgenda(tenda.llistaJocs);
 
      }
-
      //Mostra els elements 
      public static void mostrarAgenda(Map m){
           for(Iterator i=m.keySet().iterator(); i.hasNext();){
@@ -55,11 +58,11 @@ public class GameShop {
     //Eliminar un producte
         public void eliminarProducte(String nom){
         if (this.llistaJocs.get(nom) != null) {
+            System.out.println("  "+"Escriu yes per esborrar el producte");
             String resposta = sc.nextLine();
-            System.out.println("Escriu yes per esborrar el producte");
             if (resposta.equals("yes")){
                 this.llistaJocs.remove(nom);
             }else System.out.println("Producte no eliminat");
-        }else System.out.println("No s'ha trobat el producte. ");
+        }else System.out.println("  "+"No s'ha trobat el producte. ");
     }
 } 
