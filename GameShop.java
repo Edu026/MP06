@@ -7,27 +7,82 @@ public class GameShop {
 
     public static void main(String args[]){
         GameShop tenda = new GameShop();
+        Scanner sc2 = new  Scanner (System.in);
+        boolean flag = true;
+
+
+
         tenda.llistaJocs.put("Zelda Twilight Princes", 30.00);
         tenda.llistaJocs.put("CyberPunk 2077", 69.00);
         tenda.llistaJocs.put("Red Dead Redemption 2", 40.00);
 
-        //Exemple de inserir joco
-        tenda.insertGame("Persona 3", 49.00 );
-        
-        //Exemple de mostrar jocs
-        tenda.mostrarAgenda(tenda.llistaJocs);
+        //Menu
+        while (flag == true){
+            System.out.println("  "+"---------------GAME---------------");
+            tenda.mostrarJocs(tenda.llistaJocs);
+            System.out.println("\n");
+            System.out.println("  "+"---------------MENU---------------");
+            System.out.println("  "+"1)Introduir elements");
+            System.out.println("  "+"2)Modificar preu");
+            System.out.println("  "+"3)Eliminar un producte");
+            System.out.println("  "+"4)Mostrar productes alfabeticament");
+            System.out.println("  "+"5)Sortir");        
+    
+            System.out.println("  "+"Opcio:");
+            System.out.print("  ");
+            String resposta = sc2.next();
 
-        //Modificar_preu 
-        tenda.modificarPreu("Red Dead Redemption 2",20.00);
+            switch(resposta){
+                case "1":
+                    try {
+                        System.out.println("-----Introduir Joc-----"+"\n");
+                        System.out.print("  "+"Nom: ");
+                        String nomNouJoc = sc2.nextLine();
+                        System.out.print("  "+"Preu: ");
+                        Double preuNouJoc = sc2.nextDouble();;
+                        tenda.insertGame(nomNouJoc, preuNouJoc);
+                    } catch (InputMismatchException  e) {
+                        System.out.println("\n"+"  "+"El Preu introduit ha de ser un numero!");
+                    }
+                    break;
+                case "2":
+                    try {
+                        System.out.println("-----Modificar Joc-----"+"\n");
+                        System.out.print("  "+"Nom: ");
+                        String nomNouJoc = sc2.nextLine();
+                        System.out.print("  "+"Preu: ");
+                        Double preuNouJoc = sc2.nextDouble();;
+                        tenda.modificarPreu(nomNouJoc, preuNouJoc);
+                    } catch (InputMismatchException  e) {
+                        System.out.println("\n"+"  "+"El Preu introduit ha de ser un numero!");
+                    }
+                    break;
+                case "3":
+                        System.out.println("-----Eliminar Joc-----"+"\n"); 
+                        System.out.print("  "+"Nom: ");
+                        String nomNouJoc = sc2.nextLine();
+                        tenda.eliminarProducte(nomNouJoc);
+                    break;
+                case "4":
+                    System.out.println("-----Mostrar Jocs-----"+"\n");
+                    tenda.mostrarJocs(tenda.llistaJocs);
+                    break;
+                case "5":
+                    System.out.println("Adeu!!!");
+                    flag = false;
+                    break;
+                default:
+                    System.out.println("Opcio Incorrecta !");
+            }
 
-        //Exemple eliminar
-        tenda.eliminarProducte("Zelda Twilight Princes");
-        System.out.println( );
-        tenda.mostrarAgenda(tenda.llistaJocs);
+        }   
+            
+        }
 
-     }
+     
+
      //Mostra els elements 
-     public static void mostrarAgenda(Map m){
+     public static void mostrarJocs(Map m){
           for(Iterator i=m.keySet().iterator(); i.hasNext();){
             String k=(String)i.next();
             Double v=(Double)m.get(k);
@@ -37,8 +92,11 @@ public class GameShop {
 
     //Inserta elements
     public void insertGame(String nom,Double preu){
+ 
         if (this.llistaJocs.get(nom) == null) {
-            this.llistaJocs.put(nom,preu);
+            if (nom.equals("")) {
+                System.out.println("  "+"El nom no pot ser vuit");
+            }else this.llistaJocs.put(nom,preu);
         }
         else {
             System.out.println("  "+"El producte ja existeix");
@@ -48,21 +106,28 @@ public class GameShop {
     
     //Modificar el preu
     public void modificarPreu(String nom, Double preu){
-        if (this.llistaJocs.get(nom) != null) {
-            this.llistaJocs.put(nom,preu);
-            System.out.println("\n"+"  "+"Preu de "+ nom +" ha sigut modificat");
-        }        
+         if (this.llistaJocs.get(nom) != null) {
+            if (nom.equals("")) {
+                System.out.println("  "+"El nom no pot ser vuit");
+            }else {
+                this.llistaJocs.put(nom,preu);
+                System.out.println("\n"+"  "+"Preu de "+ nom +" ha sigut modificat");       
+            }
+        }
         else System.out.println("  "+"Producte desconegut”");
     }
 
     //Eliminar un producte
         public void eliminarProducte(String nom){
         if (this.llistaJocs.get(nom) != null) {
-            System.out.println("  "+"Escriu yes per esborrar el producte");
-            String resposta = sc.nextLine();
-            if (resposta.equals("yes")){
-                this.llistaJocs.remove(nom);
-            }else System.out.println("Producte no eliminat");a
+            if (nom.equals("")) {
+                System.out.println("  "+"El nom no pot ser vuit");
+            }else{
+                System.out.println("  "+"Escriu yes per esborrar el producte");
+                String resposta = sc.nextLine();
+                if (resposta.equals("yes")){
+                    this.llistaJocs.remove(nom);
+                }else System.out.println("Producte no eliminat");}
         }else System.out.println("  "+"No s'ha trobat el producte. ");
     }
 } 
